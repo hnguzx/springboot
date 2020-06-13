@@ -10,3 +10,9 @@ server:
 #      suffix: .jsp
 logging:
   config: classpath:log4j2.xml
+
+database:
+  driverName: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/springboot
+  username: root
+  password: 970712
