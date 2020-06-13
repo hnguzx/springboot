@@ -1,8 +1,15 @@
 package com.guzx.chapter2.pojo;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component("user")
 public class User {
+    @Value("1")
     private Long uid;
+    @Value("scanName")
     private String userName;
+    @Value("scanNote")
     private String note;
 
     public Long getUid() {
