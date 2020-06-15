@@ -16,3 +16,31 @@ database:
   url: jdbc:mysql://localhost:3306/springboot
   username: root
   password: 970712
+
+spring:
+  aop:
+    proxy-target-class: false
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/springboot
+    data-username: root
+    data-password: 970712
+    driver-class-name: com.mysql.jdbc.Driver
+    # 指定连接池类型
+    type: org.apache.commons.dbcp2.BasicDataSource
+#  tomcat默认连接池
+#    tomcat:
+#      max-wait: 10000
+#      max-active: 50
+#      # 最大等待连接中的数量，0为没有限制
+#      max-idle: 10
+#      initial-size: 5
+
+#    dbcp连接池
+    dbcp2:
+      max-idle: 10
+      max-total: 100
+      max-wait-millis: 10000
+      initial-size: 5
+
+
