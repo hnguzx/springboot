@@ -1,7 +1,7 @@
 package com.guzx.chapter2.controller;
 
 import com.guzx.chapter2.config.AppConfig;
-import com.guzx.chapter2.pojo.User;
+import com.guzx.chapter2.pojo.User_t;
 import com.guzx.chapter2.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,11 +15,11 @@ public class Index {
     private static Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
     @RequestMapping("/index")
     public String index(){
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
-        User u = (User) applicationContext.getBean("user");
+        /*ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        User_t u = (User_t) applicationContext.getBean("user");
         logger.info(u.getUserName());
         UserService service = (UserService) applicationContext.getBean("userService");
-        service.printUser(u);
+        service.printUser(u);*/
         return "index";
     }
 }

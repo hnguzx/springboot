@@ -38,7 +38,7 @@ public class BussinessPerson implements Person, BeanNameAware, BeanFactoryAware,
     @Qualifier("dog")
     public void setAnimal(Animal animal) {
         this.animal = animal;
-        System.out.println("依赖延迟注入");
+//        System.out.println("依赖延迟注入");
 //        this.dog = animal;
     }
 
@@ -49,36 +49,36 @@ public class BussinessPerson implements Person, BeanNameAware, BeanFactoryAware,
 
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-        System.out.println("第二步，setBeanFactory");
+//        System.out.println("第二步，setBeanFactory");
     }
 
     @Override
     public void setBeanName(String s) {
-        System.out.println("第一步，setBeanName");
+//        System.out.println("第一步，setBeanName");
     }
 
     @Override
     public void destroy() throws Exception {
-        System.out.println("第九步，destroy");
+//        System.out.println("第九步，destroy");
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.println("第六步，afterPropertiesSet");
+//        System.out.println("第六步，afterPropertiesSet");
     }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        System.out.println("第三步，setApplicationContext");
+//        System.out.println("第三步，setApplicationContext");
     }
 
     @PostConstruct
     public void init(){
-        System.out.println("第五步，自定义初始化方法");
+//        System.out.println("第五步，自定义初始化方法");
     }
 
     @PreDestroy
     public void customDestroy(){
-        System.out.println("第八步，自定义销毁方法");
+//        System.out.println("第八步，自定义销毁方法");
     }
 }

@@ -1,5 +1,5 @@
 import com.guzx.chapter2.config.AppConfig;
-import com.guzx.chapter2.pojo.User;
+import com.guzx.chapter2.pojo.User_t;
 import com.guzx.chapter2.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +18,7 @@ public class IocTest {
         logger.info(user.getUserName());*/
 
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
-        User u = (User) applicationContext.getBean("user");
+        User_t u = (User_t) applicationContext.getBean("user");
         logger.info(u.getUserName());
         UserService service = (UserService) applicationContext.getBean("userService");
         service.printUser(u);

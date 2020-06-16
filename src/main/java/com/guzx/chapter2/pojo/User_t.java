@@ -1,20 +1,23 @@
 package com.guzx.chapter2.pojo;
 
-import com.guzx.chapter2.enumeration.SexEnum;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-public class User {
-    private Long id;
+@Component("user")
+public class User_t {
+    @Value("1")
+    private Long uid;
+    @Value("scanName")
     private String userName;
-    // 枚举
-    private SexEnum sex;
+    @Value("scanNote")
     private String note;
 
-    public Long getId() {
-        return id;
+    public Long getUid() {
+        return uid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 
     public String getUserName() {
@@ -23,14 +26,6 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public SexEnum getSex() {
-        return sex;
-    }
-
-    public void setSex(SexEnum sex) {
-        this.sex = sex;
     }
 
     public String getNote() {

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class DataBaseProperties {
     private static Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
-    @Value("${logging.config}")
+//    @Value("${logging.config}")
     private String driverName = null;
 //    @Value("${database.url}")
     private String url = null;
