@@ -17,7 +17,7 @@ import java.util.Properties;
 @Configuration
 //@ComponentScan(basePackages = {"com.guzx.chapter2"},excludeFilters = {@Filter(classes = {Service.class})})
 //@ComponentScan(basePackageClasses = {User.class})
-@ComponentScan(value = "com.guzx.chapter2",lazyInit = false)
+//@ComponentScan(value = "com.guzx.chapter2",lazyInit = false)
 public class AppConfig {
 
     /*@Bean(name = "user")
