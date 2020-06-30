@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 
 @Service
@@ -75,5 +76,26 @@ public class JdbcTemplImpl implements JdbcTemplUserService {
     public int deleteUser(Long id) {
         String sql = "delete from t_user where id = ?";
         return template.update(sql, id);
+    }
+
+    public User getUser2(int id){
+        // Lambda表达式
+        User result = this.template.execute((Statement statement)->{
+            String sql1 = "select count(*) total from t_user where id= "+id;
+            ResultSet set = statement.executeQuery(sql1);
+            while (set.next()){
+                int total = set.getInt("total");
+                System.out.println("总数有："+total);
+            }
+            String sql2 = "select id,user_name,sex,note from t_user where id="+id;
+            ResultSet set2 = statement.executeQuery(sql2);
+            User user = null;
+            while (set2.next()){
+                int rowNum = set2.getRow();
+                user = getUserMapper().mapRow(set2,rowNum);
+            }
+            return user;
+        });
+        return result;
     }
 }

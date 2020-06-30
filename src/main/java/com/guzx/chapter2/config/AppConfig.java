@@ -18,6 +18,7 @@ import java.util.Properties;
 //@ComponentScan(basePackages = {"com.guzx.chapter2"},excludeFilters = {@Filter(classes = {Service.class})})
 //@ComponentScan(basePackageClasses = {User.class})
 //@ComponentScan(value = "com.guzx.chapter2",lazyInit = false)
+@ComponentScan(value = "com.guzx.chapter2")
 public class AppConfig {
 
     /*@Bean(name = "user")
@@ -32,7 +33,7 @@ public class AppConfig {
     @Bean(value = "dataSource")
     public DataSource getDataSource() {
         Properties properties = new Properties();
-        properties.setProperty("driverClassName","com.mysql.jdbc.Driver");
+        properties.setProperty("driverClassName","com.mysql.cj.jdbc.Driver");
         properties.setProperty("url","jdbc:mysql://localhost:3306/springboot");
         properties.setProperty("username","root");
         properties.setProperty("password","970712");
