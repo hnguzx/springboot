@@ -1,10 +1,7 @@
 package com.guzx.chapter2.pojo;
 
-import com.guzx.chapter2.converter.SexConverter;
 import com.guzx.chapter2.enumeration.SexEnum;
 import org.apache.ibatis.type.Alias;
-
-import javax.persistence.*;
 
 @Alias(value = "user_my")
 public class User_MyBatis {
