@@ -4,6 +4,8 @@ import com.guzx.chapter2.dao.JpaUserRepository;
 import com.guzx.chapter2.enumeration.SexEnum;
 import com.guzx.chapter2.pojo.User;
 import com.guzx.chapter2.pojo.User_JPA;
+import com.guzx.chapter2.pojo.User_MyBatis;
+import com.guzx.chapter2.service.MyBatisUserService;
 import com.guzx.chapter2.service.impl.JdbcTemplImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,9 @@ public class UserController {
 
     @Autowired
     private JpaUserRepository jpaUserRepository;
+
+//    @Autowired
+//    private MyBatisUserService myBatisUserService;
 
     @RequestMapping("/add")
     @ResponseBody
@@ -57,4 +62,20 @@ public class UserController {
         List<User_JPA> user = jpaUserRepository.findUser_JPAs(userName,note);
         return user;
     }
+
+    @RequestMapping("/getUser_JPAById")
+    @ResponseBody
+    public User_JPA getUser3(Long id) {
+        User_JPA user = jpaUserRepository.getUser_JPAById(id);
+        return user;
+    }
+
+    /*@RequestMapping("/getUser_mybatis")
+    @ResponseBody
+    public User_MyBatis getUser4(Long id) {
+        User_MyBatis user = myBatisUserService.getUser(id);
+        return user;
+    }*/
+
+
 }

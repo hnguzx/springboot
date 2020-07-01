@@ -1,6 +1,11 @@
 package com.guzx.chapter2.config;
 
+import com.guzx.chapter2.dao.MyBatisUserDao;
 import org.apache.commons.dbcp2.BasicDataSourceFactory;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.mapper.MapperFactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
@@ -33,25 +38,35 @@ public class AppConfig {
     @Bean(value = "dataSource")
     public DataSource getDataSource() {
         Properties properties = new Properties();
-        properties.setProperty("driverClassName","com.mysql.cj.jdbc.Driver");
-        properties.setProperty("url","jdbc:mysql://localhost:3306/springboot");
-        properties.setProperty("username","root");
-        properties.setProperty("password","970712");
+        properties.setProperty("driverClassName", "com.mysql.cj.jdbc.Driver");
+        properties.setProperty("url", "jdbc:mysql://localhost:3306/springboot");
+        properties.setProperty("username", "root");
+        properties.setProperty("password", "970712");
         DataSource dataSource = null;
         try {
             dataSource = BasicDataSourceFactory.createDataSource(properties);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return dataSource;
     }
 
-    public void init(){
+    public void init() {
         System.out.println("dataSource自定义初始化方法");
     }
 
-    public void destroy(){
+    public void destroy() {
         System.out.println("dataSource自定义销毁方法");
     }
+
+    /*@Autowired
+    SqlSessionFactory sqlSessionFactory = null;
+
+    public MapperFactoryBean<MyBatisUserDao> initMyBatisUserDao() {
+        MapperFactoryBean factoryBean = new MapperFactoryBean<>();
+        factoryBean.setMapperInterface(MyBatisUserDao.class);
+        factoryBean.setSqlSessionFactory(sqlSessionFactory);
+        return factoryBean;
+    }*/
 
 }
