@@ -59,15 +59,4 @@ public class AppConfig {
         System.out.println("dataSource自定义销毁方法");
     }
 
-    @Autowired
-    Sqlsessionfactory sqlsessionfactory = null;
-
-//    @Bean
-//    public MapperFactoryBean<MyBatisUserDao> initMyBatisUserDao() {
-//        MapperFactoryBean factoryBean = new MapperFactoryBean<>();
-//        factoryBean.setMapperInterface(MyBatisUserDao.class);
-//        factoryBean.setSqlSessionFactory(sqlSessionFactory);
-//        return factoryBean;
-//    }
-
 }

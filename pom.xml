@@ -77,12 +77,6 @@
             <artifactId>snakeyaml</artifactId>
         </dependency>
 
-        <!--配置h2默认数据库-->
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>-->
-
         <!--内存数据库-->
         <!--<dependency>
             <groupId>com.h2database</groupId>

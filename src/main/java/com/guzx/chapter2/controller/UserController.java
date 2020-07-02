@@ -24,8 +24,8 @@ public class UserController {
     @Autowired
     private JpaUserRepository jpaUserRepository;
 
-//    @Autowired
-//    private MyBatisUserService myBatisUserService;
+    @Autowired
+    private MyBatisUserService myBatisUserService;
 
     @RequestMapping("/add")
     @ResponseBody
@@ -70,12 +70,12 @@ public class UserController {
         return user;
     }
 
-    /*@RequestMapping("/getUser_mybatis")
+    @RequestMapping("/getUser_mybatis")
     @ResponseBody
     public User_MyBatis getUser4(Long id) {
         User_MyBatis user = myBatisUserService.getUser(id);
         return user;
-    }*/
+    }
 
 
 }
