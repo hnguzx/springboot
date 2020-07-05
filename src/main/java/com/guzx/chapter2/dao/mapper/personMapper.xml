@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guzx.chapter2.dao.PersonDao">
+    <select id="getPerson" parameterType="long" resultType="person">
+        select id,user_name as userName,note from person where id = #{id}
+    </select>
+
+    <insert id="insertPerson" useGeneratedKeys="true" keyProperty="id">
+        insert into person(user_name,note) value (#{userName},#{note})
+    </insert>
+</mapper>

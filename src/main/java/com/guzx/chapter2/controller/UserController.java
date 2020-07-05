@@ -1,6 +1,6 @@
 package com.guzx.chapter2.controller;
 
-import com.guzx.chapter2.dao.JpaUserRepository;
+//import com.guzx.chapter2.dao.JpaUserRepository;
 import com.guzx.chapter2.enumeration.SexEnum;
 import com.guzx.chapter2.pojo.User;
 import com.guzx.chapter2.pojo.User_JPA;
@@ -21,8 +21,8 @@ public class UserController {
     @Autowired
     private JdbcTemplImpl jdbcTempl;
 
-    @Autowired
-    private JpaUserRepository jpaUserRepository;
+//    @Autowired
+//    private JpaUserRepository jpaUserRepository;
 
     @Autowired
     private MyBatisUserService myBatisUserService;
@@ -49,26 +49,26 @@ public class UserController {
         return user;
     }
 
-    @RequestMapping("/jpa")
+    /*@RequestMapping("/jpa")
     @ResponseBody
     public User_JPA getUser(Long id) {
         User_JPA user = jpaUserRepository.findById(id).get();
         return user;
-    }
+    }*/
 
-    @RequestMapping("/jpaFindUser")
+    /*@RequestMapping("/jpaFindUser")
     @ResponseBody
     public List<User_JPA> getUser2(String userName,String note) {
         List<User_JPA> user = jpaUserRepository.findUser_JPAs(userName,note);
         return user;
-    }
+    }*/
 
-    @RequestMapping("/getUser_JPAById")
+    /*@RequestMapping("/getUser_JPAById")
     @ResponseBody
     public User_JPA getUser3(Long id) {
         User_JPA user = jpaUserRepository.getUser_JPAById(id);
         return user;
-    }
+    }*/
 
     @RequestMapping("/getUser_mybatis")
     @ResponseBody

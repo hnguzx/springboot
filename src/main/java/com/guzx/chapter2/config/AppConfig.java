@@ -19,11 +19,11 @@ import javax.sql.DataSource;
 import java.lang.annotation.Annotation;
 import java.util.Properties;
 
-@Configuration
+//@Configuration
 //@ComponentScan(basePackages = {"com.guzx.chapter2"},excludeFilters = {@Filter(classes = {Service.class})})
 //@ComponentScan(basePackageClasses = {User.class})
 //@ComponentScan(value = "com.guzx.chapter2",lazyInit = false)
-@ComponentScan(value = "com.guzx.chapter2")
+//@ComponentScan(value = "com.guzx.chapter2")
 public class AppConfig {
 
     /*@Bean(name = "user")
@@ -35,7 +35,7 @@ public class AppConfig {
         return user;
     }*/
 
-    @Bean(value = "dataSource")
+    /*@Bean(value = "dataSource")
     public DataSource getDataSource() {
         Properties properties = new Properties();
         properties.setProperty("driverClassName", "com.mysql.cj.jdbc.Driver");
@@ -49,7 +49,7 @@ public class AppConfig {
             e.printStackTrace();
         }
         return dataSource;
-    }
+    }*/
 
     public void init() {
         System.out.println("dataSource自定义初始化方法");

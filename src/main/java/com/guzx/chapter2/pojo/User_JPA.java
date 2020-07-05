@@ -3,19 +3,19 @@ package com.guzx.chapter2.pojo;
 import com.guzx.chapter2.converter.SexConverter;
 import com.guzx.chapter2.enumeration.SexEnum;
 
-import javax.persistence.*;
+//import javax.persistence.*;
 
-@Entity(name = "user_jpa")
-@Table(name = "t_user")
+//@Entity(name = "user_jpa")
+//@Table(name = "t_user")
 public class User_JPA {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "user_name")
+//    @Column(name = "user_name")
     private String userName;
 
     // 枚举
-    @Convert(converter = SexConverter.class)
+//    @Convert(converter = SexConverter.class)
     private SexEnum sex;
     private String note;
 
