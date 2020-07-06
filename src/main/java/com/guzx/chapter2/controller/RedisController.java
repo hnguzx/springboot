@@ -108,9 +108,19 @@ public class RedisController {
         Set<String> setScore = zSetOperations.rangeByScore(0.2,0.6);
         RedisZSetCommands.Range range = new RedisZSetCommands.Range();
         range.gt("value3");// 大于
-        range.gte("value3");// 大于等于
-        range.lt("value3");// 小于
-        range.lte("value3");// 小于等于
+//        range.gte("value3");// 大于等于
+//        range.lt("value3");// 小于
+        range.lte("value8");// 小于等于
+        // 按值排序
+        Set<String> setLex = zSetOperations.rangeByLex(range);
+        zSetOperations.remove("value9","value2");
+        Double score = zSetOperations.score("value8");
+        // 在下标区间，按分数排序，同时返回value和score
+        Set<ZSetOperations.TypedTuple<String>> rangeSet = zSetOperations.rangeWithScores(1,6);
+        // 在分数区间，按分数排序，同时返回value和score
+        Set<ZSetOperations.TypedTuple<String>> scoreSet = zSetOperations.rangeByScoreWithScores(1,6);
+        // 从大到小排序
+        Set<String> reverseSet = zSetOperations.reverseRange(2,8);
 
         Map<String, Object> result = new HashMap<>();
         result.put("success", true);
