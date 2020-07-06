@@ -12,6 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 //import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,10 +69,25 @@ public class Chapter2Application {
 
     @Autowired
     PlatformTransactionManager transactionManager = null;
+    
+//    @PostConstruct
+//    public void viewTransactonManager(){
+//        System.out.println(transactionManager.getClass().getName());
+//    }
+
+    // redis配置
+    @Autowired
+    private RedisTemplate redisTemplate = null;
 
     @PostConstruct
-    public void viewTransactonManager(){
-        System.out.println(transactionManager.getClass().getName());
+    public void init(){
+        initRedisTemplate();
+    }
+
+    private void initRedisTemplate(){
+        RedisSerializer stringSerializer = redisTemplate.getStringSerializer();
+        redisTemplate.setKeySerializer(stringSerializer);
+        redisTemplate.setHashValueSerializer(stringSerializer);
     }
 
     public static void main(String[] args) {
