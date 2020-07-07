@@ -105,7 +105,7 @@ public class RedisController {
         zSetOperations.add("value10", 20.6);
         Set<List> setRange = zSetOperations.range(1, 6);
         // 按分数排序
-        Set<String> setScore = zSetOperations.rangeByScore(0.2,0.6);
+        Set<String> setScore = zSetOperations.rangeByScore(0.2, 0.6);
         RedisZSetCommands.Range range = new RedisZSetCommands.Range();
         range.gt("value3");// 大于
 //        range.gte("value3");// 大于等于
@@ -113,15 +113,40 @@ public class RedisController {
         range.lte("value8");// 小于等于
         // 按值排序
         Set<String> setLex = zSetOperations.rangeByLex(range);
-        zSetOperations.remove("value9","value2");
+        zSetOperations.remove("value9", "value2");
         Double score = zSetOperations.score("value8");
         // 在下标区间，按分数排序，同时返回value和score
-        Set<ZSetOperations.TypedTuple<String>> rangeSet = zSetOperations.rangeWithScores(1,6);
+        Set<ZSetOperations.TypedTuple<String>> rangeSet = zSetOperations.rangeWithScores(1, 6);
         // 在分数区间，按分数排序，同时返回value和score
-        Set<ZSetOperations.TypedTuple<String>> scoreSet = zSetOperations.rangeByScoreWithScores(1,6);
+        Set<ZSetOperations.TypedTuple<String>> scoreSet = zSetOperations.rangeByScoreWithScores(1, 6);
         // 从大到小排序
-        Set<String> reverseSet = zSetOperations.reverseRange(2,8);
+        Set<String> reverseSet = zSetOperations.reverseRange(2, 8);
 
+        Map<String, Object> result = new HashMap<>();
+        result.put("success", true);
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping("/multi")
+    public Map<String, Object> testMulti() {
+        redisTemplate.opsForValue().set("city", "shenzhen");
+        List list = (List) redisTemplate.execute(new (RedisOperations redisOperations) -> {
+            // 设置要监控的key
+            redisOperations.watch("city");
+            // 开启事务，在exec命令执行前，全部都只是进入队列
+            redisOperations.multi();
+            redisOperations.opsForValue().set("key2", "value2");
+//            redisOperations.opsForValue().increment("city",1);
+            Object value2 = redisOperations.opsForValue().get("key2");
+            System.out.println("命令在队列中，所以value2值为null" + value2);
+            redisOperations.opsForValue().set("key3", "value3");
+            Object value3 = redisOperations.opsForValue().get("key3");
+            System.out.println("命令在队列中，所以value3值为null" + value3);
+            // 执行exec，其将先判断key1在被监控后是否改变过，如果是则不执行事务，否则执行事务
+            return redisOperations.exec();
+        });
+        System.out.println(list);
         Map<String, Object> result = new HashMap<>();
         result.put("success", true);
         return result;
