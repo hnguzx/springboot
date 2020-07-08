@@ -247,8 +247,8 @@ public class RedisController {
     @ResponseBody
     @RequestMapping("/lua2")
     public Map<String, Object> testLua2(String key1, String key2, String value1, String value2) {
-        String lua = "redis call('set', KEYS[1],ARGV[1])\n"
-                + "redis call('set', KEYS[2],ARGV[2])\n"
+        String lua = "redis.call('set', KEYS[1],ARGV[1])\n"
+                + "redis.call('set', KEYS[2],ARGV[2])\n"
                 + "local str1 = redis.call('get',KEYS[1])\n"
                 + "local str2 = redis.call('get',KEYS[2])\n"
                 + "if str1 == str2 then \n"
