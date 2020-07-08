@@ -11,7 +11,7 @@ public interface StudentDao {
 
     Student getStudent(long id);
 
-    Student insertStudent(Student student);
+    int insertStudent(Student student);
 
     int updateStudent(Student student);
 

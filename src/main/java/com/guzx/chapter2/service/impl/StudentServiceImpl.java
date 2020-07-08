@@ -32,7 +32,8 @@ public class StudentServiceImpl implements StudentService {
     // 最后MyBatis会回填id，取结果id缓存用户
     @CachePut(value = "redisCache", key = "'redis_student_'+#result.id")
     public Student insertStudent(Student student) {
-        return studentDao.insertStudent(student);
+        studentDao.insertStudent(student);
+        return student;
     }
 
     @Override
