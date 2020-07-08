@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guzx.chapter2.dao.StudentDao">
+    <select id="getStudent" parameterType="long" resultType="student">
+        select id, user_name as userName, note
+        from student
+        where id = #{id}
+    </select>
+
+    <insert id="insertStudent" useGeneratedKeys="true" keyProperty="id" parameterType="student">
+        insert into student(user_name, note)
+        values (#{userName}, #{note})
+    </insert>
+
+    <update id="updateStudent">
+        update student
+        <set>
+            <if test="userName != null">user_name = #{userName}</if>
+            <if test="note != null">note = #{note}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="findStudents" resultType="student">
+        select id,user_name as userName,note from student
+        <where>
+            <if test="userName != null">and user_name = #{userName}</if>
+            <if test="note != null">and note = #{note}</if>
+        </where>
+    </select>
+
+    <delete id="deleteStudent" parameterType="long">
+        delete
+        from student
+        where id = #{id}
+    </delete>
+</mapper>
