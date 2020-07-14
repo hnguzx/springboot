@@ -60,6 +60,13 @@ public class JdbcTemplImpl implements JdbcTemplUserService {
         return users;
     }
 
+    public List<User> findAll() {
+        String sql = "select id,user_name,sex,note " +
+                "from t_user ";
+        List<User> users = template.query(sql, getUserMapper());
+        return users;
+    }
+
     @Override
     public int insertUser(User user) {
         String sql = "insert into t_user (user_name,sex,note) values(?,?,?)";

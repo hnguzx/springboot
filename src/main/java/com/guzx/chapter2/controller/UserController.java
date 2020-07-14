@@ -1,6 +1,7 @@
 package com.guzx.chapter2.controller;
 
 //import com.guzx.chapter2.dao.JpaUserRepository;
+
 import com.guzx.chapter2.enumeration.SexEnum;
 import com.guzx.chapter2.pojo.User;
 import com.guzx.chapter2.pojo.User_JPA;
@@ -10,7 +11,10 @@ import com.guzx.chapter2.service.impl.JdbcTemplImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import java.util.List;
 
@@ -47,6 +51,41 @@ public class UserController {
     public User addUser(int id) {
         User user = jdbcTempl.getUser2(id);
         return user;
+    }
+
+    @RequestMapping("/detail")
+    public ModelAndView userDetail(int id) {
+        User user = jdbcTempl.getUser2(id);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("user/detail");
+        modelAndView.addObject(user);
+        return modelAndView;
+    }
+
+    @RequestMapping("/detailJson")
+    public ModelAndView userDetail2(int id) {
+        User user = jdbcTempl.getUser2(id);
+        ModelAndView modelAndView = new ModelAndView();
+        MappingJackson2JsonView jsonView = new MappingJackson2JsonView();
+        modelAndView.setView(jsonView);
+        modelAndView.addObject("user", user);
+        return modelAndView;
+    }
+
+    @RequestMapping("/table")
+    public ModelAndView getAllUser() {
+//        List<User> users = jdbcTempl.findUsers(null, null);
+        List<User> users = jdbcTempl.findAll();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("user/table");
+        modelAndView.addObject("userList", users);
+        return modelAndView;
+    }
+
+    @RequestMapping("/list")
+    public List<User> getList(@RequestParam(value = "userName", required = false) String userName, @RequestParam(value = "note", required = false) String note) {
+        List<User> users = jdbcTempl.findUsers(userName, note);
+        return users;
     }
 
     /*@RequestMapping("/jpa")
