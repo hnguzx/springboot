@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MyBatisUserServiceImpl implements MyBatisUserService {
 
@@ -16,5 +18,10 @@ public class MyBatisUserServiceImpl implements MyBatisUserService {
     @Override
     public User_MyBatis getUser(Long id) {
         return myBatisUserDao.getUser(id);
+    }
+
+    @Override
+    public List<User_MyBatis> getUsers(String userName, String note) {
+        return myBatisUserDao.getUsers(userName, note);
     }
 }

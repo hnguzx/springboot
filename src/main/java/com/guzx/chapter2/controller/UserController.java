@@ -2,6 +2,7 @@ package com.guzx.chapter2.controller;
 
 //import com.guzx.chapter2.dao.JpaUserRepository;
 
+import com.alibaba.fastjson.JSONArray;
 import com.guzx.chapter2.enumeration.SexEnum;
 import com.guzx.chapter2.pojo.User;
 import com.guzx.chapter2.pojo.User_JPA;
@@ -10,13 +11,13 @@ import com.guzx.chapter2.service.MyBatisUserService;
 import com.guzx.chapter2.service.impl.JdbcTemplImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -75,17 +76,19 @@ public class UserController {
     @RequestMapping("/table")
     public ModelAndView getAllUser() {
 //        List<User> users = jdbcTempl.findUsers(null, null);
-        List<User> users = jdbcTempl.findAll();
+//        List<User> users = jdbcTempl.findAll();
+        List<User_MyBatis> users = myBatisUserService.getUsers(null, null);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("user/table");
         modelAndView.addObject("userList", users);
         return modelAndView;
     }
 
-    @RequestMapping("/list")
-    public List<User> getList(@RequestParam(value = "userName", required = false) String userName, @RequestParam(value = "note", required = false) String note) {
-        List<User> users = jdbcTempl.findUsers(userName, note);
-        return users;
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    @ResponseBody
+    public List<User_MyBatis> getList(@RequestParam(value = "userName", required = false) String userName, @RequestParam(value = "note", required = false) String note) {
+        List<User_MyBatis> userList = myBatisUserService.getUsers(userName, note);
+        return userList;
     }
 
     /*@RequestMapping("/jpa")

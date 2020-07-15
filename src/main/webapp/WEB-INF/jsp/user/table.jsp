@@ -13,10 +13,9 @@
     <script type="text/javascript" src="../jquery-easyui-1.9.7/jquery.easyui.min.js"></script>
     <script type="text/javascript">
         function onSearch() {
-            var opts = $("#dg").datagrid("options");
-            opts.uri = "./list";
+            var opts = $("#dg").datagrid({url:'./list'});
             var userName = $("#userName").val();
-            var note = $("#nonte").val();
+            var note = $("#note").val();
 
             var param = {};
             if (userName != null && userName.trim() != '') {
@@ -25,7 +24,7 @@
             if (note != null && note.trim() != '') {
                 param.note = note;
             }
-            $("#dg").datagrid('load', param);
+            $("#dg").datagrid("reload",param);
 
         }
     </script>
@@ -56,7 +55,7 @@
         </form>
     </div>
     <div data-options="regio:'center',title:'用户列表',iconCls:'icon-ok'">
-        <table id="dg" class="datagrid" data-options="border:false,singleSelect:true,fit:true,fitColumns:true">
+        <table id="dg" class="datagrid" data-options="border:false,singleSelect:true">
             <thead>
             <tr>
                 <th data-options="field:'id'" width="80">
