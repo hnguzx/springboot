@@ -84,7 +84,8 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/list", method = RequestMethod.POST)
+//    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    @PostMapping(value = "/list")
     @ResponseBody
     public List<User_MyBatis> getList(@RequestParam(value = "userName", required = false) String userName, @RequestParam(value = "note", required = false) String note) {
         List<User_MyBatis> userList = myBatisUserService.getUsers(userName, note);
