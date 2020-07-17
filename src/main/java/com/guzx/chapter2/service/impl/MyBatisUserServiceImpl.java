@@ -24,4 +24,9 @@ public class MyBatisUserServiceImpl implements MyBatisUserService {
     public List<User_MyBatis> getUsers(String userName, String note) {
         return myBatisUserDao.getUsers(userName, note);
     }
+
+    @Override
+    public Integer insertUser(User_MyBatis user_myBatis) {
+        return myBatisUserDao.insertUser(user_myBatis);
+    }
 }

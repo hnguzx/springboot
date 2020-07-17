@@ -49,4 +49,15 @@ public class Index {
         result.put("str_Val", strVal);
         return result;
     }
+
+    @RequestMapping("/arrayList")
+    @ResponseBody
+    // RequestParam value对应http参数
+    public Map<String, Object> arrayList(Integer[] intArr,Long[] longArr,String[] strArr) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("intArr", intArr);
+        result.put("longArr", longArr);
+        result.put("strArr", strArr);
+        return result;
+    }
 }

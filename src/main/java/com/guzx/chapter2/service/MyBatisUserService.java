@@ -8,4 +8,6 @@ public interface MyBatisUserService {
     public User_MyBatis getUser(Long id);
 
     public List<User_MyBatis> getUsers(String userName, String note);
+
+    public Integer insertUser(User_MyBatis user_myBatis);
 }

@@ -15,4 +15,8 @@
             <if test="note != null">note = #{note}</if>
         </where>
     </select>
+
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user(user_name, note) value (#{userName}, #{note})
+    </insert>
 </mapper>

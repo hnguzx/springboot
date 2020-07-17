@@ -84,7 +84,7 @@ public class UserController {
         return modelAndView;
     }
 
-//    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    //    @RequestMapping(value = "/list", method = RequestMethod.POST)
     @PostMapping(value = "/list")
     @ResponseBody
     public List<User_MyBatis> getList(@RequestParam(value = "userName", required = false) String userName, @RequestParam(value = "note", required = false) String note) {
@@ -120,5 +120,25 @@ public class UserController {
         return user;
     }
 
+    @GetMapping("/add")
+    public String add() {
+        return "/user/add";
+    }
+
+    @PostMapping("/insert")
+    @ResponseBody
+    public User_MyBatis insert(@RequestBody User_MyBatis user_myBatis) {
+        myBatisUserService.insertUser(user_myBatis);
+        return user_myBatis;
+    }
+
+    // {}标识占位符
+    @GetMapping("/{id}")
+    @ResponseBody
+    // @PathVariable通过名称获取参数
+    public User getUser5(@PathVariable("id") Integer id){
+        User user = jdbcTempl.getUser2(id);
+        return user;
+    }
 
 }
