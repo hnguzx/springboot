@@ -11,8 +11,8 @@
     <select id="getUsers" resultType="user_my">
         select id,user_name as userName,note from t_user
         <where>
-            <if test="userName != null">user_name = #{userName}</if>
-            <if test="note != null">note = #{note}</if>
+            <if test="userName != null">and user_name = #{userName}</if>
+            <if test="note != null">and note = #{note}</if>
         </where>
     </select>
 

@@ -8,7 +8,7 @@ public class User_MyBatis {
     private Long id;
     private String userName;
     // 枚举
-    private SexEnum sex;
+//    private SexEnum sex;
     private String note;
 
     public Long getId() {
@@ -27,13 +27,13 @@ public class User_MyBatis {
         this.userName = userName;
     }
 
-    public SexEnum getSex() {
+    /*public SexEnum getSex() {
         return sex;
     }
 
     public void setSex(SexEnum sex) {
         this.sex = sex;
-    }
+    }*/
 
     public String getNote() {
         return note;
