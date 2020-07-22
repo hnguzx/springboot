@@ -4,8 +4,30 @@
 <head>
     <meta charset="UTF-8" http-equiv="Content-Type" content="text/html">
     <title>restful</title>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1.9.7/jquery.min.js"></script>
     <script type="text/javascript">
+        function post() {
+            var params = {
+                'userName':'restfulName',
+                'sexCode':1,
+                'note':'this is note'
+            }
+
+            $.post({
+                url:'./user',
+                contentType:'application/json',
+                data:JSON.stringify(params),
+                success:function (result) {
+                    if (result!=null&& result.id!=null){
+                        alert("插入成功！")
+                        return;
+                    }
+                    alert("插入失败！")
+                }
+            });
+        }
+
+        post();
     </script>
 </head>
 <body>

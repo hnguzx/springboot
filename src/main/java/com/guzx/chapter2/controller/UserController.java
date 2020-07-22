@@ -3,11 +3,13 @@ package com.guzx.chapter2.controller;
 //import com.guzx.chapter2.dao.JpaUserRepository;
 
 import com.alibaba.fastjson.JSONArray;
+import com.guzx.chapter2.dao.JpaUserRepository;
 import com.guzx.chapter2.enumeration.SexEnum;
 import com.guzx.chapter2.pojo.User;
 import com.guzx.chapter2.pojo.User_JPA;
 import com.guzx.chapter2.pojo.User_MyBatis;
 import com.guzx.chapter2.service.MyBatisUserService;
+import com.guzx.chapter2.service.UserService;
 import com.guzx.chapter2.service.impl.JdbcTemplImpl;
 import com.guzx.chapter2.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -216,7 +218,7 @@ public class UserController {
 
     @GetMapping("/restful")
     public String index() {
-        return "restful";
+        return "restful/index";
     }
 
     private User changeToPo(UserVo userVo) {
@@ -238,9 +240,13 @@ public class UserController {
         return userVo;
     }
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/user")
+    @ResponseBody
     public User insertUser(@RequestBody UserVo userVo) {
         User user = this.changeToPo(userVo);
-        return user;
+        return userService.insertUser(user);
     }
 }
