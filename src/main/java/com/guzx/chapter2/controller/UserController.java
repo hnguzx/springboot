@@ -150,7 +150,7 @@ public class UserController {
         return "data/user";
     }
 
-    @GetMapping("/show")
+    @GetMapping("/show2")
     public String showUser2(User_MyBatis user_myBatis, Model model) {
         System.out.println(user_myBatis.getUserName());
         return "data/user";
@@ -176,7 +176,7 @@ public class UserController {
         return modelAndView;
     }
 
-    /*@GetMapping("/redirect3")
+    @GetMapping("/redirect3")
     public String redirect3(String userName, String note, RedirectAttributes redirectAttributes) {
         User_MyBatis user_myBatis = new User_MyBatis();
         user_myBatis.setUserName(userName);
@@ -184,7 +184,7 @@ public class UserController {
         myBatisUserService.insertUser(user_myBatis);
 
         redirectAttributes.addFlashAttribute("user", user_myBatis);
-        return "redirect:/user/showUser2";
+        return "redirect:/user/show2";
     }
 
     @GetMapping("/redirect4")
@@ -196,8 +196,20 @@ public class UserController {
 
         redirectAttributes.addFlashAttribute("user", user_myBatis);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/user/showUser2");
+        modelAndView.setViewName("redirect:/user/show2");
         return modelAndView;
-    }*/
+    }
 
+    @GetMapping("/head/page")
+    public String headPage() {
+        return "head/head";
+    }
+
+    @PostMapping("/head/user")
+    @ResponseBody
+    // @RequestHeader("id")从http请求头中获取信息
+    public User_MyBatis headerUser(@RequestHeader("id") Long id){
+        User_MyBatis user_myBatis = myBatisUserService.getUser(id);
+        return user_myBatis;
+    }
 }
