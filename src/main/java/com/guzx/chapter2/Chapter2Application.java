@@ -2,6 +2,9 @@ package com.guzx.chapter2;
 
 
 import com.guzx.chapter2.dao.MyBatisUserDao;
+import com.guzx.chapter2.interceptor.CustomInterceptor;
+import com.guzx.chapter2.interceptor.CustomInterceptor2;
+import com.guzx.chapter2.interceptor.CustomInterceptor3;
 import com.guzx.chapter2.listener.RedisMessageListener;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.annotation.MapperScan;
@@ -14,6 +17,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 //import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -26,9 +30,13 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.PostConstruct;
 
+@Configuration
 @SpringBootApplication(scanBasePackages = {"com.guzx.chapter2.*"})
 //@EnableJpaRepositories(basePackages = "com.guzx.chapter2.dao")
 //@EntityScan(basePackages = "com.guzx.chapter2.pojo")
@@ -43,7 +51,7 @@ import javax.annotation.PostConstruct;
 //@RestController
 //@ComponentScan(basePackages = {"com.guzx.chapter2"},excludeFilters = {@ComponentScan.Filter(classes = {Service.class})})
 @EnableCaching
-public class Chapter2Application {
+public class Chapter2Application implements WebMvcConfigurer {
 
 //    @RequestMapping("/")
 //    String index(){
@@ -113,11 +121,12 @@ public class Chapter2Application {
 
     /**
      * 创建任务池，运行线程等待处理redis的消息
+     *
      * @return
      */
     @Bean
-    public ThreadPoolTaskScheduler initTaskScheduler(){
-        if(threadPoolTaskScheduler!=null){
+    public ThreadPoolTaskScheduler initTaskScheduler() {
+        if (threadPoolTaskScheduler != null) {
             return this.threadPoolTaskScheduler;
         }
         threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
@@ -127,11 +136,12 @@ public class Chapter2Application {
 
     /**
      * 定义Redis的监听容器
+     *
      * @return
      */
     @Bean
-    public RedisMessageListenerContainer initRedisContainer(){
-        RedisMessageListenerContainer  container = new RedisMessageListenerContainer();
+    public RedisMessageListenerContainer initRedisContainer() {
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         // redis连接工厂
         container.setConnectionFactory(connectionFactory);
         // 设置运行任务池
@@ -139,10 +149,21 @@ public class Chapter2Application {
         // 定义监听渠道，名称为topic1
         Topic topic = new ChannelTopic("topic1");
         // 使用监听器监听redis的消息
-        container.addMessageListener(messageListener,topic);
+        container.addMessageListener(messageListener, topic);
         return container;
     }
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        InterceptorRegistration registration = registry.addInterceptor(new CustomInterceptor());
+        registration.addPathPatterns("/interceptor/*");
+
+        InterceptorRegistration registration2 = registry.addInterceptor(new CustomInterceptor2());
+        registration2.addPathPatterns("/interceptor/*");
+
+        InterceptorRegistration registration3 = registry.addInterceptor(new CustomInterceptor3());
+        registration3.addPathPatterns("/interceptor/*");
+    }
 
 
     public static void main(String[] args) {
