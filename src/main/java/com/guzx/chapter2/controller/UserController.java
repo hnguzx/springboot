@@ -9,10 +9,13 @@ import com.guzx.chapter2.pojo.User_JPA;
 import com.guzx.chapter2.pojo.User_MyBatis;
 import com.guzx.chapter2.service.MyBatisUserService;
 import com.guzx.chapter2.service.impl.JdbcTemplImpl;
+import com.guzx.chapter2.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import java.util.HashMap;
@@ -136,9 +139,108 @@ public class UserController {
     @GetMapping("/{id}")
     @ResponseBody
     // @PathVariable通过名称获取参数
-    public User getUser5(@PathVariable("id") Integer id){
+    public User getUser5(@PathVariable("id") Integer id) {
         User user = jdbcTempl.getUser2(id);
         return user;
     }
 
+    @GetMapping("/show")
+    public String showUser(Long id, Model model) {
+        User_MyBatis user_myBatis = myBatisUserService.getUser(id);
+        model.addAttribute("user", user_myBatis);
+        return "data/user";
+    }
+
+    @GetMapping("/show2")
+    public String showUser2(User_MyBatis user_myBatis, Model model) {
+        System.out.println(user_myBatis.getUserName());
+        return "data/user";
+    }
+
+    @GetMapping("/redirect1")
+    public String redirect(String userName, String note) {
+        User_MyBatis user_myBatis = new User_MyBatis();
+        user_myBatis.setUserName(userName);
+        user_myBatis.setNote(note);
+        myBatisUserService.insertUser(user_myBatis);
+        return "redirect:/user/show?id=" + user_myBatis.getId();
+    }
+
+    @GetMapping("/redirect2")
+    public ModelAndView redirect2(String userName, String note) {
+        User_MyBatis user_myBatis = new User_MyBatis();
+        user_myBatis.setUserName(userName);
+        user_myBatis.setNote(note);
+        myBatisUserService.insertUser(user_myBatis);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/user/show?id=" + user_myBatis.getId());
+        return modelAndView;
+    }
+
+    @GetMapping("/redirect3")
+    public String redirect3(String userName, String note, RedirectAttributes redirectAttributes) {
+        User_MyBatis user_myBatis = new User_MyBatis();
+        user_myBatis.setUserName(userName);
+        user_myBatis.setNote(note);
+        myBatisUserService.insertUser(user_myBatis);
+
+        redirectAttributes.addFlashAttribute("user", user_myBatis);
+        return "redirect:/user/show2";
+    }
+
+    @GetMapping("/redirect4")
+    public ModelAndView redirect4(String userName, String note, RedirectAttributes redirectAttributes) {
+        User_MyBatis user_myBatis = new User_MyBatis();
+        user_myBatis.setUserName(userName);
+        user_myBatis.setNote(note);
+        myBatisUserService.insertUser(user_myBatis);
+
+        redirectAttributes.addFlashAttribute("user", user_myBatis);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/user/show2");
+        return modelAndView;
+    }
+
+    @GetMapping("/head/page")
+    public String headPage() {
+        return "head/head";
+    }
+
+    @PostMapping("/head/user")
+    @ResponseBody
+    // @RequestHeader("id")从http请求头中获取信息
+    public User_MyBatis headerUser(@RequestHeader("id") Long id) {
+        User_MyBatis user_myBatis = myBatisUserService.getUser(id);
+        return user_myBatis;
+    }
+
+    @GetMapping("/restful")
+    public String index() {
+        return "restful";
+    }
+
+    private User changeToPo(UserVo userVo) {
+        User user = new User();
+        user.setId(userVo.getId());
+        user.setUserName(userVo.getUserName());
+        user.setNote(userVo.getNote());
+        user.setSex(SexEnum.getEnumById(userVo.getSexCode()));
+        return user;
+    }
+
+    private UserVo changeToVo(User user) {
+        UserVo userVo = new UserVo();
+        userVo.setId(user.getId());
+        userVo.setUserName(user.getUserName());
+        userVo.setNote(user.getNote());
+        userVo.setSexCode(user.getSex().getId());
+        userVo.setSexName(user.getSex().getName());
+        return userVo;
+    }
+
+    @PostMapping("/user")
+    public User insertUser(@RequestBody UserVo userVo) {
+        User user = this.changeToPo(userVo);
+        return user;
+    }
 }

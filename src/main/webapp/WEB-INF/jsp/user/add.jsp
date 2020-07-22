@@ -25,7 +25,8 @@
                 }
 
                 $.post({
-                    url: "./insert",
+                    // url: "./insert",
+                    url: "./redirect1",
                     contentType: "application/json",
                     data: JSON.stringify(params),
                     success: function (result) {
