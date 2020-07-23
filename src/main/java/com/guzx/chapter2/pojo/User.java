@@ -1,7 +1,9 @@
 package com.guzx.chapter2.pojo;
 
 import com.guzx.chapter2.enumeration.SexEnum;
+import org.apache.ibatis.type.Alias;
 
+@Alias("user")
 public class User {
     private Long id;
     private String userName;

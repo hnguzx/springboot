@@ -5,14 +5,18 @@ package com.guzx.chapter2.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.guzx.chapter2.dao.JpaUserRepository;
 import com.guzx.chapter2.enumeration.SexEnum;
+import com.guzx.chapter2.exception.NotFoundException;
 import com.guzx.chapter2.pojo.User;
 import com.guzx.chapter2.pojo.User_JPA;
 import com.guzx.chapter2.pojo.User_MyBatis;
 import com.guzx.chapter2.service.MyBatisUserService;
 import com.guzx.chapter2.service.UserService;
 import com.guzx.chapter2.service.impl.JdbcTemplImpl;
+import com.guzx.chapter2.vo.ResultVo;
 import com.guzx.chapter2.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import javax.xml.transform.Result;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -248,5 +253,72 @@ public class UserController {
     public User insertUser(@RequestBody UserVo userVo) {
         User user = this.changeToPo(userVo);
         return userService.insertUser(user);
+    }
+
+    @ResponseBody
+    @GetMapping("/user/{id}")
+    public UserVo getUserById(@PathVariable("id") Long id) {
+        User user = userService.getUserById(id);
+        UserVo userVo = this.changeToVo(user);
+        return userVo;
+    }
+
+    // 参数数量必须完全匹配才可以请求成功
+    @GetMapping("/user/{userName}/{note}/{start}/{limit}")
+    @ResponseBody
+    public List<User> getUsers(@PathVariable("userName") String userName, @PathVariable("note") String note,
+                               @PathVariable("start") int start, @PathVariable("limit") int limit) {
+        List<User> users = userService.getUsers(userName, note, start, limit);
+        return users;
+    }
+
+    @ResponseBody
+    @PutMapping("/user/{id}")
+    public User updateUser(@PathVariable("id") Long id, @RequestBody UserVo userVo) {
+        User user = this.changeToPo(userVo);
+        user.setId(id);
+        userService.updateUser(user);
+        return user;
+    }
+
+    @ResponseBody
+    @PatchMapping("/user/{id}/{userName}")
+    public ResultVo updateUserName(@PathVariable("id") Long id, @PathVariable("userName") String userName) {
+        int result = userService.updateUserName(id, userName);
+        ResultVo resultVo = new ResultVo(result > 0, result > 0 ? "更新成功" : "更新失败");
+        return resultVo;
+    }
+
+    @ResponseBody
+    @DeleteMapping("/user/{id}")
+    public ResultVo deleteUser(@PathVariable("id") Long id) {
+        int result = userService.deleteUser(id);
+        ResultVo resultVo = new ResultVo(result > 0, result > 0 ? "删除成功" : "删除失败");
+        return resultVo;
+    }
+
+    @ResponseBody
+    @PatchMapping("/user/name")
+    public ResultVo updateUserName2(Long id, String userName) {
+        int result = userService.updateUserName(id, userName);
+        ResultVo resultVo = new ResultVo(result > 0, result > 0 ? "更新成功" : "更新失败");
+        return resultVo;
+    }
+
+    @GetMapping("/user/name")
+    public String changeUserNamePage() {
+        return "restful/change_user_name";
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/exp/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public UserVo getUserForExp(@PathVariable("id") Long id) {
+        User user = userService.getUserById(id);
+        if (user==null){
+            throw new NotFoundException(1L,"未查找到指定用户！");
+        }
+        UserVo userVo = this.changeToVo(user);
+        return userVo;
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@ControllerAdvice(basePackages = {"com.guzx.chapter2.controller.*"}, annotations = Controller.class)
+//@ControllerAdvice(basePackages = {"com.guzx.chapter2.controller.*"}, annotations = Controller.class)
 public class MyControllerAdvice {
 
     // 绑定格式化，参数转换规则，增加校验器
