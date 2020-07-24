@@ -1,11 +1,11 @@
 package com.guzx.chapter2;
 
 
-import com.guzx.chapter2.interceptor.CustomInterceptor;
-import com.guzx.chapter2.interceptor.CustomInterceptor2;
-import com.guzx.chapter2.interceptor.CustomInterceptor3;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -23,7 +23,6 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -47,6 +46,8 @@ import java.util.Locale;
 //@RestController
 //@ComponentScan(basePackages = {"com.guzx.chapter2"},excludeFilters = {@ComponentScan.Filter(classes = {Service.class})})
 @EnableCaching
+//@EnableJms
+@EnableRabbit
 public class Chapter2Application implements WebMvcConfigurer {
 
 //    @RequestMapping("/")
@@ -183,6 +184,22 @@ public class Chapter2Application implements WebMvcConfigurer {
         registration3.addPathPatterns("/interceptor/*");*/
 
         registry.addInterceptor(localeChangeInterceptor());
+    }
+
+    @Value("${rabbitmq.queue.msg}")
+    private String msgQueueName = null;
+
+    @Value("${rabbitmq.queue.user}")
+    private String userQueueName = null;
+
+    @Bean
+    public Queue createQueueMsg(){
+        return new Queue(msgQueueName,true);
+    }
+
+    @Bean
+    public Queue createQueueUser(){
+        return new Queue(userQueueName,true);
     }
 
 

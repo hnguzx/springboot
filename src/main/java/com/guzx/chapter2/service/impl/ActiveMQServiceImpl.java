@@ -4,7 +4,9 @@ import com.guzx.chapter2.service.ActiveMQService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ActiveMQServiceImpl implements ActiveMQService {
 
     @Autowired
