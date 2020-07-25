@@ -21,6 +21,10 @@ import org.springframework.data.redis.listener.Topic;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.LocaleResolver;
@@ -50,7 +54,7 @@ import java.util.Locale;
 //@EnableJms
 @EnableRabbit
 @EnableScheduling
-public class Chapter2Application implements WebMvcConfigurer {
+public class Chapter2Application extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
 //    @RequestMapping("/")
 //    String index(){
@@ -204,6 +208,14 @@ public class Chapter2Application implements WebMvcConfigurer {
         return new Queue(userQueueName,true);
     }*/
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        auth.inMemoryAuthentication().passwordEncoder(passwordEncoder).
+                withUser("user1").password(passwordEncoder.encode("123")).roles("USER").and().
+                withUser("user2").password(passwordEncoder.encode("123")).roles("ADMIN").and().
+                withUser("user3").password(passwordEncoder.encode("123")).roles("USER");
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(Chapter2Application.class, args);

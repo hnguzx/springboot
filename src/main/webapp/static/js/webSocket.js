@@ -60,10 +60,10 @@ function closeWebSocket() {
  */
 function sendMessage() {
     var message = $("#message").val();
-    var messageTo = {
-        name:'guzhixiong',
-        message:message
-    }
-    messageTo = JSON.stringify(messageTo);
-    webSocket.send(messageTo);
+    // var messageTo = {
+    //     name:'guzhixiong',
+    //     message:message
+    // }
+    // messageTo = JSON.stringify(messageTo);
+    webSocket.send(message);
 }
