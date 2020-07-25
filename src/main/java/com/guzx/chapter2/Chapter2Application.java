@@ -19,6 +19,7 @@ import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.Topic;
 import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -48,6 +49,7 @@ import java.util.Locale;
 @EnableCaching
 //@EnableJms
 @EnableRabbit
+@EnableScheduling
 public class Chapter2Application implements WebMvcConfigurer {
 
 //    @RequestMapping("/")
@@ -186,7 +188,7 @@ public class Chapter2Application implements WebMvcConfigurer {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
-    @Value("${rabbitmq.queue.msg}")
+    /*@Value("${rabbitmq.queue.msg}")
     private String msgQueueName = null;
 
     @Value("${rabbitmq.queue.user}")
@@ -200,7 +202,7 @@ public class Chapter2Application implements WebMvcConfigurer {
     @Bean
     public Queue createQueueUser(){
         return new Queue(userQueueName,true);
-    }
+    }*/
 
 
     public static void main(String[] args) {

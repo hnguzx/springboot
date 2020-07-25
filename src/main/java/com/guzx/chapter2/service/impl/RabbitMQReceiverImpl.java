@@ -4,7 +4,7 @@ import com.guzx.chapter2.service.RabbitMQReceiver;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class RabbitMQReceiverImpl implements RabbitMQReceiver {
     @Override
     @RabbitListener(queues = {"${rabbitmq.queue.msg}"})

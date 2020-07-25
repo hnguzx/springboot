@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
-@RequestMapping("/activeMQ")
+//@Controller
+//@RequestMapping("/activeMQ")
 public class ActiveMQController {
     @Autowired
     private ActiveMQObjectService objectService;

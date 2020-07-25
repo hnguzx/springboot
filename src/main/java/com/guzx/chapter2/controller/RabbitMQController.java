@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
-@RequestMapping("/rabbitMQ")
+//@Controller
+//@RequestMapping("/rabbitMQ")
 public class RabbitMQController {
     @Autowired
     private RabbitMQService rabbitMQService;

@@ -6,7 +6,7 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class ActiveMQServiceImpl implements ActiveMQService {
 
     @Autowired
