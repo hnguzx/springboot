@@ -14,6 +14,7 @@ import java.security.Principal;
 @RequestMapping("/webSocket")
 public class WebSocketContorller {
 
+
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
