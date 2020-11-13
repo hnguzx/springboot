@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,8 @@ public class WebSocketContorller {
         return "webSocket/receiveUser";
     }
 
+
+    // 处理stomp消息
     // 定义消息请求路径
     @MessageMapping("/send")
     // 定义结果发送到特定路径
@@ -50,6 +53,7 @@ public class WebSocketContorller {
         return value;
     }
 
+    // 处理stomp消息
     /**
      * 发送消息给特定用户
      * @param principal
@@ -65,4 +69,12 @@ public class WebSocketContorller {
         //  发送到用户和监听地址
         messagingTemplate.convertAndSendToUser(desUser, "/queue/customer", message);
     }
+
+    // 请求-回应
+    // 客户端订阅某一个目的地，然后预期在这个目的地上获得一个一次性的响应。
+    // 异步处理
+//    @SubscribeMapping("/subscribe")
+//    public String handleSubscription(){
+//        return "SubscribeMapping";
+//    }
 }

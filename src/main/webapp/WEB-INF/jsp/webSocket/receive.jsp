@@ -13,10 +13,14 @@
             var stompClient = Stomp.over(socket);
             stompClient.connect({}, function () {
                 console.log("notice socket connected")
-                stompClient.subscribe('/sub/chat', function (data) {
+                stompClient.subscribe('/subscribe', function (data) {
                     $("#receive").html(data.body);
 
                 })
+                // stompClient.subscribe('/sub/chat', function (data) {
+                //     $("#receive").html(data.body);
+                //
+                // })
             })
         }
 

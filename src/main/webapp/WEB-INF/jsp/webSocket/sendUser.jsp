@@ -31,7 +31,7 @@
          */
         function openConnect() {
             // 定义请求服务器的端点
-            var socket = new SockJS('/wsuser');
+            var socket = new SockJS('/socket');
             stompClient = Stomp.over(socket);
 
             stompClient.connect({}, function (frame) {

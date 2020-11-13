@@ -1,7 +1,8 @@
 var webSocket = null;
 // 判断游览器是否支持websocket
 // if ('WebSocket' in Window) {
-    webSocket = new WebSocket("ws://localhost/ws")
+    var url = 'ws://'+window.location.host+'/ws';
+    webSocket = new WebSocket(url) // 开启websoket
 // } else {
 //     alert("该游览器不支持！")
 // }
