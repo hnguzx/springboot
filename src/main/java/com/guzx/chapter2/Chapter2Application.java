@@ -54,7 +54,8 @@ import java.util.Locale;
 //@EnableJms
 @EnableRabbit
 @EnableScheduling
-public class Chapter2Application extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+//public class Chapter2Application extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+public class Chapter2Application implements WebMvcConfigurer {
 
 //    @RequestMapping("/")
 //    String index(){
@@ -208,14 +209,14 @@ public class Chapter2Application extends WebSecurityConfigurerAdapter implements
         return new Queue(userQueueName,true);
     }*/
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        auth.inMemoryAuthentication().passwordEncoder(passwordEncoder).
-                withUser("user1").password(passwordEncoder.encode("123")).roles("USER").and().
-                withUser("user2").password(passwordEncoder.encode("123")).roles("ADMIN").and().
-                withUser("user3").password(passwordEncoder.encode("123")).roles("USER");
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        auth.inMemoryAuthentication().passwordEncoder(passwordEncoder).
+//                withUser("user1").password(passwordEncoder.encode("123")).roles("USER").and().
+//                withUser("user2").password(passwordEncoder.encode("123")).roles("ADMIN").and().
+//                withUser("user3").password(passwordEncoder.encode("123")).roles("USER");
+//    }
 
     public static void main(String[] args) {
         SpringApplication.run(Chapter2Application.class, args);

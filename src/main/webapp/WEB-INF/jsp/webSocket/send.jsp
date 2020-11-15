@@ -31,11 +31,13 @@
          */
         function openConnect() {
             // 定义请求服务器的端点
+            // var url = 'http://'+window.location.host + '/request/socket';
+            // var socket = new SockJS('/socket'); // 开启websoket
             var socket = new SockJS('/socket'); // 开启websoket
-            stompClient = Stomp.over(socket);
+            stompClient = Stomp.over(socket); // 创建stomp客户端
 
             stompClient.connect({}, function (frame) {
-                setConnected(true);
+                setConnected(true); // 连接stomp端点
             })
 
         }

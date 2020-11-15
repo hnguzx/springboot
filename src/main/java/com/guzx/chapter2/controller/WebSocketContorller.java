@@ -18,6 +18,7 @@ public class WebSocketContorller {
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
+
     @GetMapping("/view")
     public String webSocketPage() {
         return "webSocket/index";
@@ -46,10 +47,12 @@ public class WebSocketContorller {
 
     // 处理stomp消息
     // 定义消息请求路径
+    // @MessageMapping标注的方法如果有返回值则会将值返回给消息代理
     @MessageMapping("/send")
-    // 定义结果发送到特定路径
+    // 定义结果发送到特定路径，经过代理
     @SendTo("/sub/chat")
-    public String sendMessage(String value) {
+//    @SendTo("/subscribe")
+    public String sendMessage(Principal principal, String value) {
         return value;
     }
 
@@ -72,9 +75,10 @@ public class WebSocketContorller {
 
     // 请求-回应
     // 客户端订阅某一个目的地，然后预期在这个目的地上获得一个一次性的响应。
-    // 异步处理
-//    @SubscribeMapping("/subscribe")
-//    public String handleSubscription(){
-//        return "SubscribeMapping";
-//    }
+    // 异步处理，不经过代理
+    @SubscribeMapping("/subscribe")
+    public String handleSubscription(){
+        System.out.println("hello sub");
+        return "SubscribeMapping";
+    }
 }

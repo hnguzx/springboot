@@ -3,7 +3,10 @@ package com.guzx.chapter2.pojo;
 import com.guzx.chapter2.enumeration.SexEnum;
 import org.apache.ibatis.type.Alias;
 
+import javax.persistence.Entity;
+
 @Alias("user")
+@Entity
 public class User {
     private Long id;
     private String userName;

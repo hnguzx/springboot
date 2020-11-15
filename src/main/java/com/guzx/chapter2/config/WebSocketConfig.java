@@ -37,9 +37,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void configureMessageBroker(MessageBrokerRegistry registry) {
 
         // 客户端订阅路径前缀，消息代理
-        // registry.enableSimpleBroker("/sub","/queue"); // 基于内存的简单代理
+         registry.enableSimpleBroker("/sub","/queue"); // 基于内存的简单代理
         // 所有目的地前缀为“/topic”或“/queue”的消息都会发送到STOMP代理中。需要配合RabbitMQ或ActiveMQ代理
-        registry.enableStompBrokerRelay("/sub", "/queue");
+//        registry.enableStompBrokerRelay("/sub", "/queue");
 
         // 服务端点请求前缀，客户端发往服务端的端点
         // 所有目的地以“/request”打头的消息都将会路由到带有@MessageMapping注解的方法中，而不会发布到代理队列或主题中。
